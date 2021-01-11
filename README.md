@@ -31,7 +31,7 @@ If you're interested in making .NET data better, then consider contributing to o
 - [Microsoft.Data.SqlClient (ADO.NET provider for SQL Server)](https://github.com/dotnet/sqlclient) - Microsoft.Data.SqlClient
 - [EF Core](https://github.com/dotnet/efcore) - Entity Framework Core (SQL Server/Sqlite/Cosmos) and Microsoft.Data.Sqlite
 
-## Community repos
+### Community repos
 
 - [EF Core Power Tools](https://github.com/ErikEJ/EFCorePowerTools)
 - [StackExchange.Dapper](https://github.com/StackExchange/Dapper)
