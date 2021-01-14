@@ -75,5 +75,6 @@ If you're interested in making .NET data better, then consider contributing to o
 - [EntityFrameworkCore.Sqlite.NodaTime](https://github.com/khellang/EFCore.Sqlite.NodaTime)
 - [ErikEJ.EntityFrameworkCore.SqlServer.Dacpac](https://github.com/ErikEJ/EFCorePowerTools/wiki/ErikEJ.EntityFrameworkCore.SqlServer.Dacpac)
 - [ErikEJ.EntityFrameworkCore.DgmlBuilder](https://github.com/ErikEJ/EFCorePowerTools/wiki/Inspect-your-DbContext-model)
+- [WeihanLi.EntityFramework](https://github.com/WeihanLi/WeihanLi.EntityFramework)
 
 Feel free to send a pull request to add your .NET data related GitHub repo to this list.
