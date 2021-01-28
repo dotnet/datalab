@@ -51,6 +51,7 @@ If you're interested in making .NET data better, then consider contributing to o
 - [EntityFrameworkCore.Scaffolding.Handlebars](https://github.com/TrackableEntities/EntityFrameworkCore.Scaffolding.Handlebars)
 - [EntityFrameworkCore.Sqlite.NodaTime](https://github.com/khellang/EFCore.Sqlite.NodaTime)
 - [EntityFrameworkCore.SqlServer.HierarchyId](https://github.com/efcore/EFCore.SqlServer.HierarchyId)
+- [EntityFrameworkCore.SqlServer.SimpleBulks](https://github.com/phongnguyend/EntityFrameworkCore.SqlServer.SimpleBulks)
 - [EntityFrameworkCore.TemporalTables](https://github.com/findulov/EntityFrameworkCore.TemporalTables)
 - [EntityFrameworkCore.Triggered](https://github.com/koenbeuk/EntityFrameworkCore.Triggered)
 - [ErikEJ.EntityFrameworkCore.DgmlBuilder](https://github.com/ErikEJ/EFCorePowerTools/wiki/Inspect-your-DbContext-model)
