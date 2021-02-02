@@ -1,6 +1,6 @@
 # .NET Data Lab
 
-This repo is for experimentation and exploring new ideas involving ADO.NET, EF Core, and other areas realted to .NET data.
+This repo is for experimentation and exploring new ideas involving ADO.NET, EF Core, and other areas related to .NET data.
 
 ## Current projects
 
