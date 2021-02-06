@@ -59,6 +59,7 @@ If you're interested in making .NET data better, then consider contributing to o
 - [Expressionify](https://github.com/ClaveConsulting/Expressionify)
 - [Firebird .NET Data Provider](https://github.com/cincuranet/FirebirdSql.Data.FirebirdClient)
 - [Geco (Generator Console)](https://github.com/iQuarc/Geco)
+- [JsonFlatFileDataStore](https://github.com/ttu/json-flatfile-datastore)
 - [linq2db.EntityFrameworkCore](https://github.com/linq2db/linq2db.EntityFrameworkCore)
 - [LocalDb](https://github.com/SimonCropp/LocalDb)
 - [LoreSoft's Entity Framework Core Generator](https://github.com/loresoft/EntityFrameworkCore.Generator)
