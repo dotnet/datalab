@@ -45,6 +45,7 @@ If you're interested in making .NET data better, then consider contributing to o
 - [EfCoreTemporalTable](https://github.com/glautrou/EfCoreTemporalTable)
 - [EfFluentValidation](https://github.com/SimonCropp/EfFluentValidation)
 - [Entity Framework Visual Designer](https://github.com/msawczyn/EFDesigner)
+- [EntityFramework.Exceptions](https://github.com/Giorgi/EntityFramework.Exceptions)
 - [EntityFrameworkCore.Cacheable](https://github.com/SteffenMangold/EntityFrameworkCore.Cacheable)
 - [EntityFrameworkCore.ConfigurationManager](https://github.com/efcore/EFCore.ConfigurationManager)
 - [EntityFrameworkCore.NCache](https://www.alachisoft.com/ncache/ef-core-cache.html)
