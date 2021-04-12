@@ -36,6 +36,7 @@ If you're interested in making .NET data better, then consider contributing to o
 - [Bricelam.EntityFrameworkCore.Pluralizer](https://github.com/bricelam/EFCore.Pluralizer)
 - [CatFactory](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
 - [Dabble.EntityFrameworkCore.Temporal.Query](https://github.com/Adam-Langley/efcore-temporal-query)
+- [DuckDB .NET Data Provider](https://github.com/Giorgi/DuckDB.NET)
 - [EF Core Power Tools](https://github.com/ErikEJ/EFCorePowerTools)
 - [EFCore.BulkExtensions](https://github.com/borisdj/EFCore.BulkExtensions)
 - [EFCore.NamingConventions](https://github.com/efcore/EFCore.NamingConventions)
