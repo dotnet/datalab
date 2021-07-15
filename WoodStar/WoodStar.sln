@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31423.177
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodStar", "WoodStar\WoodStar.csproj", "{8595E2BB-851A-4D37-A113-1B9EF8A19C32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodStar.Tests", "WoodStar.Tests\WoodStar.Tests.csproj", "{88961A35-50BB-4565-873E-CF9226D1EFE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8595E2BB-851A-4D37-A113-1B9EF8A19C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8595E2BB-851A-4D37-A113-1B9EF8A19C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8595E2BB-851A-4D37-A113-1B9EF8A19C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8595E2BB-851A-4D37-A113-1B9EF8A19C32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88961A35-50BB-4565-873E-CF9226D1EFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88961A35-50BB-4565-873E-CF9226D1EFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88961A35-50BB-4565-873E-CF9226D1EFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88961A35-50BB-4565-873E-CF9226D1EFE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {079C1BCC-9663-4B28-9806-1EAEFEE678A2}
+	EndGlobalSection
+EndGlobal
