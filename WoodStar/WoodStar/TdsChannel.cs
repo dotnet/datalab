@@ -20,6 +20,8 @@ namespace WoodStar
         {
             _pipeReader = PipeReader.Create(stream);
             _stream = stream;
+            _sslStream = null!;
+            _sslPipeReader = null!;
         }
 
         public void SetSslStream(SslStream sslStream)
@@ -48,12 +50,13 @@ namespace WoodStar
             }
         }
 
-        public async Task Login()
+        public async Task Login(string username, string password, string database)
         {
             var login7Stream = new Login7Stream
             {
-                UserName = "sa",
-                Password = "Password1!"
+                UserName = username,
+                Password = password,
+                Database = database,
             };
             var header = new TdsHeader(PacketType.Login, PacketStatus.EOM, login7Stream.Length + TdsHeader.HeaderSize, 0, 1);
             var loginBuffer = ArrayPool<byte>.Shared.Rent(header.Length);
@@ -66,7 +69,6 @@ namespace WoodStar
             ArrayPool<byte>.Shared.Return(loginBuffer);
 
             var loginResponse = await ReadNextPacketAsync(ResponseType.Login);
-
         }
 
         private async ValueTask<TdsPacket?> ReadNextPacketAsync(ResponseType expectedResponse)
@@ -79,13 +81,13 @@ namespace WoodStar
                 var result = await reader.ReadAsync();
                 var buffer = result.Buffer;
 
-                if (buffer.Length >= 8)
+                if (buffer.Length >= TdsHeader.HeaderSize)
                 {
-                    var header = TdsHeader.Parse(buffer.Slice(0, 8));
+                    var header = TdsHeader.Parse(buffer.Slice(0, TdsHeader.HeaderSize));
                     if (buffer.Length >= header.Length)
                     {
                         TdsPacket? tdsPacket;
-                        var packetBuffer = buffer.Slice(8, header.Length - 8);
+                        var packetBuffer = buffer.Slice(TdsHeader.HeaderSize, header.Length - TdsHeader.HeaderSize);
                         switch (expectedResponse)
                         {
                             case ResponseType.Prelogin:

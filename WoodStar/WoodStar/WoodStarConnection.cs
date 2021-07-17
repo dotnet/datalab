@@ -46,7 +46,7 @@ namespace WoodStar
             });
             interceptingStream.StopIntercepting();
             _tdsChannel.SetSslStream(sslStream);
-            await _tdsChannel.Login();
+            await _tdsChannel.Login(_username, _password, _database);
         }
 
         private sealed class InterceptingStream : Stream
@@ -93,19 +93,19 @@ namespace WoodStar
                     if (_packetBytes == 0)
                     {
                         // Process header
-                        var header = new byte[8];
+                        var header = new byte[TdsHeader.HeaderSize];
                         var headerBytes = 0;
                         do
                         {
-                            var headerReadCount = await _stream.ReadAsync(header.AsMemory()[headerBytes..8], cancellationToken);
+                            var headerReadCount = await _stream.ReadAsync(header.AsMemory()[headerBytes..TdsHeader.HeaderSize], cancellationToken);
                             if (headerReadCount == 0)
                             {
                                 throw new EndOfStreamException();
                             }
                             headerBytes += headerReadCount;
-                        } while (headerBytes < 8);
+                        } while (headerBytes < TdsHeader.HeaderSize);
 
-                        _packetBytes = 256 * header[2] + header[3] - 8;
+                        _packetBytes = 256 * header[2] + header[3] - TdsHeader.HeaderSize;
                     }
 
                     var readCount = await _stream.ReadAsync(buffer.Slice(0, Math.Min(buffer.Length, _packetBytes)), cancellationToken);
@@ -125,9 +125,9 @@ namespace WoodStar
             {
                 if (_intercept)
                 {
-                    var modifiedLength = buffer.Length + 8;
+                    var modifiedLength = buffer.Length + TdsHeader.HeaderSize;
                     var modifiedBuffer = ArrayPool<byte>.Shared.Rent(modifiedLength);
-                    buffer.CopyTo(modifiedBuffer.AsMemory(8));
+                    buffer.CopyTo(modifiedBuffer.AsMemory(TdsHeader.HeaderSize));
 
                     var tdsHeader = new TdsHeader(PacketType.PreLogin, PacketStatus.EOM, modifiedLength, 0, 1);
                     tdsHeader.WriteToBuffer(modifiedBuffer);

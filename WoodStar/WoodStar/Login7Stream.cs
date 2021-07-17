@@ -12,10 +12,12 @@ namespace WoodStar
             MinorVersion = minorVersion;
             BuildNumber = buildNumber;
         }
+
         public int Length { get; }
         public byte MajorVersion { get; }
         public byte MinorVersion { get; }
         public ushort BuildNumber { get; }
+
         public static LoginAckStream ParseResponse(ReadOnlySequence<byte> buffer)
         {
             var span = buffer.FirstSpan;
@@ -37,21 +39,24 @@ namespace WoodStar
     {
         private static readonly byte[] _clientTdsVersion = new byte[] { 0x04, 0x00, 0x00, 0x74 }; // This is what client is supposed to send
 
+        private const string LibraryName = "Woodstar";
+
         public int Length =>
             4 * 6
             + 4
             + 8
             + 4 * 12
-            + 6
             + 4
-            + (UserName.Length + Password.Length + "Scs".Length + 10 + Environment.MachineName.Length) * 2;
+            + (UserName.Length + Password.Length + LibraryName.Length + ApplicationName.Length + 10 + Environment.MachineName.Length) * 2;
 
         //public Version ClientProgramVersion { get; set; }
         public uint ClientPid { get; set; }
         public uint ConnectionId { get; set; }
 
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string UserName { get; init; } = string.Empty;
+        public string Password { get; init; } = string.Empty;
+        public string Database { get; init; } = string.Empty;
+        public string ApplicationName { get; init; } = LibraryName;
 
         public void WriteToBuffer(byte[] buffer)
         {
@@ -114,24 +119,21 @@ namespace WoodStar
             // OffsetLength
             ushort dataOffset = 94;
             var hostName = Environment.MachineName;
-            var applicationName = "Scs";
             var serverName = ".";
             var extension = "";
-            var clientLibraryName = "Scs";
             var language = "";
-            var database = "master";
             var attachDbFileName = "";
             var changePassword = "";
 
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, hostName);
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, UserName);
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, Password);
-            WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, applicationName);
+            WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, ApplicationName);
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, serverName);
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, extension);
-            WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, clientLibraryName);
+            WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, LibraryName);
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, language);
-            WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, database);
+            WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, Database);
             buffer.WriteBytes(bufferOffset, new byte[6]); // Client Mac address
             bufferOffset += 6;
             WriteOffsetLength(buffer, ref bufferOffset, ref dataOffset, ""); // SSPI
@@ -143,11 +145,11 @@ namespace WoodStar
             WriteString(buffer, ref bufferOffset, hostName);
             WriteString(buffer, ref bufferOffset, UserName);
             WriteEncryptedPassword(buffer, ref bufferOffset, Password);
-            WriteString(buffer, ref bufferOffset, applicationName);
+            WriteString(buffer, ref bufferOffset, ApplicationName);
             WriteString(buffer, ref bufferOffset, serverName);
-            WriteString(buffer, ref bufferOffset, clientLibraryName);
+            WriteString(buffer, ref bufferOffset, LibraryName);
             WriteString(buffer, ref bufferOffset, language);
-            WriteString(buffer, ref bufferOffset, database);
+            WriteString(buffer, ref bufferOffset, Database);
             WriteString(buffer, ref bufferOffset, attachDbFileName);
             WriteString(buffer, ref bufferOffset, changePassword);
 
