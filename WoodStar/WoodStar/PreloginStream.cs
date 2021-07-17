@@ -67,7 +67,7 @@ namespace WoodStar
                 buffer[bufferOffset++] = (byte)i;
                 buffer.WriteUnsignedShortBigEndian(bufferOffset, (ushort)(payloadOffset - headerSize));
                 bufferOffset += 2;
-                ushort length;
+                ushort length = 0;
                 switch (i)
                 {
                     case 0:
@@ -87,7 +87,7 @@ namespace WoodStar
 
                     case 2:
                         // InstanceName
-                        if (InstanceName != null)
+                        if (!string.IsNullOrEmpty(InstanceName))
                         {
                             length = (ushort)InstanceName.Length;
                             for (var j = 0; j < length; j++)
@@ -95,11 +95,8 @@ namespace WoodStar
                                 buffer.WriteByte(payloadOffset + j, (byte)InstanceName[i]);
                             }
                         }
-                        else
-                        {
-                            buffer.WriteByte(payloadOffset, 0);
-                            length = 1;
-                        }
+                        buffer.WriteByte(payloadOffset, 0);
+                        length += 1;
                         break;
 
                     case 3:

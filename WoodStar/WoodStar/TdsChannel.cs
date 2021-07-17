@@ -27,6 +27,7 @@ namespace WoodStar
             preloginStream.WriteToBuffer(preloginBuffer);
 
             await _stream.WriteAsync(preloginBuffer, 0, header.Length);
+            await _stream.FlushAsync();
 
             ArrayPool<byte>.Shared.Return(preloginBuffer);
 
@@ -37,24 +38,28 @@ namespace WoodStar
             }
         }
 
-        public async Task Login()
+        public async Task Login(string username, string password, string database)
         {
             var login7Stream = new Login7Stream
             {
-                UserName = "sa",
-                Password = "Password1!"
+                UserName = username,
+                Password = password,
+                Database = database,
             };
             var header = new TdsHeader(PacketType.Login, PacketStatus.EOM, login7Stream.Length + TdsHeader.HeaderSize, 0, 1);
             var loginBuffer = ArrayPool<byte>.Shared.Rent(header.Length);
             header.WriteToBuffer(loginBuffer);
             login7Stream.WriteToBuffer(loginBuffer);
 
-            await _stream.WriteAsync(loginBuffer, 0, loginBuffer.Length);
+            await _stream.WriteAsync(loginBuffer, 0, header.Length);
+            await _stream.FlushAsync();
 
             ArrayPool<byte>.Shared.Return(loginBuffer);
+        }
 
+        public async Task CompleteLogin()
+        {
             var loginResponse = await ReadNextPacketAsync(ResponseType.Login);
-
         }
 
         private async ValueTask<TdsPacket?> ReadNextPacketAsync(ResponseType expectedResponse)

@@ -34,8 +34,8 @@ namespace WoodStar
             var socket = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             await socket.ConnectAsync(remoteEP);
             var networkStream = new NetworkStream(socket);
-            _tdsChannel = new TdsChannel(networkStream);
-            await _tdsChannel.Prelogin();
+            var nonSslTdsChannel = new TdsChannel(networkStream);
+            await nonSslTdsChannel.Prelogin();
 
             var interceptingStream = new InterceptingStream(networkStream);
             var sslStream = new SslStream(interceptingStream, leaveInnerStreamOpen: false);
@@ -45,8 +45,10 @@ namespace WoodStar
                 RemoteCertificateValidationCallback = (_, _, _, _) => true,
             });
             interceptingStream.StopIntercepting();
-            _tdsChannel = new TdsChannel(sslStream);
-            await _tdsChannel.Login();
+            var sslTdsChannel = new TdsChannel(sslStream);
+            await sslTdsChannel.Login(_username, _password, _database);
+            await nonSslTdsChannel.CompleteLogin();
+            _tdsChannel = nonSslTdsChannel;
         }
 
         private sealed class InterceptingStream : Stream
