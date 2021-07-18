@@ -50,7 +50,7 @@ namespace WoodStar
             => _numberOfOptions * _sizePerOption + 1 /* Terminator */
                 + 6 /* Version */
                 + 1 /* Encryption */
-                + (InstanceName == null ? 1 : InstanceName.Length)
+                + 1 + (string.IsNullOrEmpty(InstanceName) ? 0 : InstanceName.Length)
                 + 4 /* ThreadId */
                 + 1 /* MARS */
                 + (ConnectionId == null ? 0 : 36) /* ConnectionIdActivityIdActivitySequence */
@@ -92,7 +92,7 @@ namespace WoodStar
                             length = (ushort)InstanceName.Length;
                             for (var j = 0; j < length; j++)
                             {
-                                buffer.WriteByte(payloadOffset + j, (byte)InstanceName[i]);
+                                buffer.WriteByte(payloadOffset + j, (byte)InstanceName[j]);
                             }
                         }
                         buffer.WriteByte(payloadOffset, 0);
