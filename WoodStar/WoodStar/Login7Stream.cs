@@ -12,10 +12,12 @@ namespace WoodStar
             MinorVersion = minorVersion;
             BuildNumber = buildNumber;
         }
+
         public int Length { get; }
         public byte MajorVersion { get; }
         public byte MinorVersion { get; }
         public ushort BuildNumber { get; }
+
         public static LoginAckStream ParseResponse(ReadOnlySequence<byte> buffer)
         {
             var span = buffer.FirstSpan;
