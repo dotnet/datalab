@@ -72,8 +72,8 @@ namespace WoodStar
                 {
                     case 0:
                         // Version
-                        buffer.WriteBytes(payloadOffset, MajorVersion);
-                        buffer.WriteBytes(payloadOffset + 1, MinorVersion);
+                        buffer.WriteByte(payloadOffset, MajorVersion);
+                        buffer.WriteByte(payloadOffset + 1, MinorVersion);
                         buffer.WriteUnsignedShortBigEndian(payloadOffset + 2, BuildNumber);
                         buffer.WriteUnsignedShortBigEndian(payloadOffset + 4, BuildNumber);
                         length = 6;
