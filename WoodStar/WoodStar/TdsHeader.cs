@@ -5,7 +5,7 @@ namespace WoodStar
 {
     public class TdsHeader
     {
-        public static int HeaderSize = 8;
+        public const int HeaderSize = 8;
 
         public TdsHeader(PacketType packetType, PacketStatus packetStatus, int length, int spid, int packetId)
         {
@@ -39,7 +39,7 @@ namespace WoodStar
         public static TdsHeader Parse(ReadOnlySequence<byte> buffer)
         {
             var reader = new SequenceReader<byte>(buffer);
-            if (reader.Length < 8)
+            if (reader.Length < HeaderSize)
             {
                 throw new InvalidOperationException();
             }
@@ -51,11 +51,6 @@ namespace WoodStar
             reader.TryRead(out var packetId);
 
             return new TdsHeader((PacketType)packetType, (PacketStatus)packetStatus, packetLength, spid, packetId);
-        }
-
-        private static int ConvertBytes(byte h, byte l)
-        {
-            return h * 0xFF + l;
         }
     }
 }

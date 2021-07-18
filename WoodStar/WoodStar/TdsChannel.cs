@@ -69,13 +69,13 @@ namespace WoodStar
                 var result = await _pipeReader.ReadAsync();
                 var buffer = result.Buffer;
 
-                if (buffer.Length >= 8)
+                if (buffer.Length >= TdsHeader.HeaderSize)
                 {
-                    var header = TdsHeader.Parse(buffer.Slice(0, 8));
+                    var header = TdsHeader.Parse(buffer.Slice(0, TdsHeader.HeaderSize));
                     if (buffer.Length >= header.Length)
                     {
                         TdsPacket? tdsPacket;
-                        var packetBuffer = buffer.Slice(8, header.Length - 8);
+                        var packetBuffer = buffer.Slice(TdsHeader.HeaderSize, header.Length - TdsHeader.HeaderSize);
                         switch (expectedResponse)
                         {
                             case ResponseType.Prelogin:
