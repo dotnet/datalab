@@ -23,6 +23,7 @@ namespace WoodStar
             buffer[offset++] = (byte)(value >> 8);
             buffer[offset++] = (byte)value;
         }
+
         public static void WriteUnsignedIntLittleEndian(this byte[] buffer, int offset, uint value)
         {
             buffer[offset++] = (byte)value;
