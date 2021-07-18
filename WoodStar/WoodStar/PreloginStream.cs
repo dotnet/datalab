@@ -95,7 +95,7 @@ namespace WoodStar
                                 buffer.WriteByte(payloadOffset + j, (byte)InstanceName[j]);
                             }
                         }
-                        buffer.WriteByte(payloadOffset, 0);
+                        buffer.WriteByte(payloadOffset + length, 0);
                         length += 1;
                         break;
 
