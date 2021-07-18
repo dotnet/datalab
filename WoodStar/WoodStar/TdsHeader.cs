@@ -38,16 +38,19 @@ namespace WoodStar
 
         public static TdsHeader Parse(ReadOnlySequence<byte> buffer)
         {
-            // TODO: Use sequence reader.
-            if (buffer.Length != 8
-                || !buffer.IsSingleSegment)
+            var reader = new SequenceReader<byte>(buffer);
+            if (reader.Length < 8)
             {
                 throw new InvalidOperationException();
             }
 
-            var span = buffer.FirstSpan;
-            return new TdsHeader(
-                (PacketType)span[0], (PacketStatus)span[1], ConvertBytes(span[2], span[3]), ConvertBytes(span[4], span[5]), span[6]);
+            reader.TryRead(out var packetType);
+            reader.TryRead(out var packetStatus);
+            reader.TryReadBigEndian(out short packetLength);
+            reader.TryReadBigEndian(out short spid);
+            reader.TryRead(out var packetId);
+
+            return new TdsHeader((PacketType)packetType, (PacketStatus)packetStatus, packetLength, spid, packetId);
         }
 
         private static int ConvertBytes(byte h, byte l)
