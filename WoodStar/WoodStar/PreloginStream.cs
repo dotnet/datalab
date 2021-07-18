@@ -5,8 +5,8 @@ namespace WoodStar
 {
     public class PreloginStream
     {
-        private static readonly int _numberOfOptions = 7;
-        private static readonly int _sizePerOption = 5; // Option(1) + Offset(2) + Length(2)
+        private const int NumberOfOptions = 7;
+        private const int SizePerOption = 5; // Option(1) + Offset(2) + Length(2)
 
         public PreloginStream(
             byte majorVersion,
@@ -47,7 +47,7 @@ namespace WoodStar
         public uint? ActivitySequence { get; }
 
         public int Length
-            => _numberOfOptions * _sizePerOption + 1 /* Terminator */
+            => NumberOfOptions * SizePerOption + 1 /* Terminator */
                 + 6 /* Version */
                 + 1 /* Encryption */
                 + 1 + (string.IsNullOrEmpty(InstanceName) ? 0 : InstanceName.Length)
@@ -60,9 +60,9 @@ namespace WoodStar
         {
             var headerSize = TdsHeader.HeaderSize;
             var bufferOffset = headerSize;
-            var payloadOffset = (ushort)(headerSize + _numberOfOptions * _sizePerOption + 1);
+            var payloadOffset = (ushort)(headerSize + NumberOfOptions * SizePerOption + 1);
 
-            for (var i = 0; i < _numberOfOptions; i++)
+            for (var i = 0; i < NumberOfOptions; i++)
             {
                 buffer[bufferOffset++] = (byte)i;
                 buffer.WriteUnsignedShortBigEndian(bufferOffset, (ushort)(payloadOffset - headerSize));
@@ -143,7 +143,7 @@ namespace WoodStar
             var span = buffer.FirstSpan;
 
             var (versionOffset, _) = ParseOption(span, 0);
-            if (versionOffset != 7 * _sizePerOption + 1)
+            if (versionOffset != 7 * SizePerOption + 1)
             {
                 throw new InvalidOperationException();
             }
@@ -167,7 +167,7 @@ namespace WoodStar
                 throw new NotImplementedException();
             }
 
-            if (span[7 * _sizePerOption] != 0xFF)
+            if (span[7 * SizePerOption] != 0xFF)
             {
                 throw new InvalidOperationException();
             }
@@ -176,7 +176,7 @@ namespace WoodStar
 
             static (int Offset, int Length) ParseOption(ReadOnlySpan<byte> span, byte expectedOption)
             {
-                var offset = expectedOption * _sizePerOption;
+                var offset = expectedOption * SizePerOption;
                 if (span[offset] != expectedOption)
                 {
                     throw new InvalidOperationException();
