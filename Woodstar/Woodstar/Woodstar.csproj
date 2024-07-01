@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Woodstar.Tests" />
+    <InternalsVisibleTo Include="Woodstar.FunctionalTests" />
+    <InternalsVisibleTo Include="Woodstar.Benchmark" />
+    <PackageReference Include="Pipelines.Sockets.Unofficial" Version="2.2.2" />
+    <PackageReference Include="System.IO.Pipelines" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tds\TdsCommandReader.cs" />
+  </ItemGroup>
+
+</Project>
