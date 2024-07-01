@@ -29,8 +29,8 @@ public class Benchmarks
     }
 
     const string EndPoint = "127.0.0.1:1433";
-    const string Username = "sa";
-    const string Password = "Abcd5678";
+    const string Username = "<USERNAME>";
+    const string Password = "PLACEHOLDER";
     const string Database = "test";
 
     const string ConnectionString = $"Data Source=127.0.0.1;User ID={Username};Password={Password};Initial Catalog={Database};Integrated Security=False;TrustServerCertificate=true;";
@@ -236,5 +236,5 @@ public class Benchmarks
             return CommandExecution.Create(values.ExecutionFlags, values.CommandFlags);
         }
     }
-    
+
 }
