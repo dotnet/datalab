@@ -1,5 +1,9 @@
 # .NET Data Lab
 
+This repo is archived. See [Woodstar experiment summary](https://github.com/dotnet/datalab/issues/22) for more information.
+
+---
+
 This repo is for experimentation and exploring new ideas involving ADO.NET, EF Core, and other areas related to .NET data.
 
 ## Current projects
